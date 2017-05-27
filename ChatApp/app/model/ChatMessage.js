@@ -9,6 +9,9 @@ Ext.define("ChatApp.model.ChatMessage", {
         name : "id",
         type : "auto"
     }, {
+        name : "post_date",
+        type : "date"
+    }, {
         name : "username",
         type : "string"
     }, {

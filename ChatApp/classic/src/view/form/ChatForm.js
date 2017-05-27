@@ -132,11 +132,15 @@ Ext.define("ChatApp.view.form.ChatForm", {
     onSocketConnect : function(chatsocket, socket, data) {
         var me = this;
         //console.log("connect");
-        Ext.toast("Server connection estableshed");
+        Ext.toast("Server connection estableshed", "", "t");
         if (!me.username) {
             me.showLoginForm();
         } else {
             me.socket.sendLogin({username: me.username});
+            setTimeout(function() {
+                var record = me.chatBox.getStore().last();
+                me.goToRecord(record);
+            }, 10);
         }
     },
 
@@ -148,14 +152,19 @@ Ext.define("ChatApp.view.form.ChatForm", {
      */
     onSocketLogin : function(chatsocket, socket, data) {
         var me = this;
-        //console.log("user_logged_in", data);
+        console.log("user_logged_in", data);
         var username = Ext.util.Format.stripTags(data.username);
         var myUsername = Ext.util.Format.stripTags(me.username);
         if (myUsername === username) {
             this.messageBox.down("textarea").setDisabled(false);
-            Ext.toast("Welcome, " + username + ". " + data.online + " users is now online");
+            Ext.toast("Welcome, " + username + ". " + data.online + " users is now online", "", "t");
+            if (Ext.isArray(data.messages) && data.messages.length) {
+                Ext.Array.each(data.messages, function(item) {
+                    me.addMessage(item.post_date, item.username, item.message);
+                });
+            }
         } else {
-            Ext.toast("User " + username + " logged in. " + data.online + " users is now online");
+            Ext.toast("User " + username + " logged in. " + data.online + " users is now online", "", "t");
         }
     },
 
@@ -169,7 +178,7 @@ Ext.define("ChatApp.view.form.ChatForm", {
         var me = this;
         //console.log("user_type_start", data);
         var username = Ext.util.Format.stripTags(data.username);
-        Ext.toast("User " + username + " typing message");
+        Ext.toast("User " + username + " typing message", "", "t");
     },
 
     /**
@@ -182,7 +191,7 @@ Ext.define("ChatApp.view.form.ChatForm", {
         var me = this;
         //console.log("user_type_end", data);
         var username = Ext.util.Format.stripTags(data.username);
-        Ext.toast("User " + username + " ends typing message");
+        Ext.toast("User " + username + " ends typing message", "", "t");
     },
 
     /**
@@ -194,7 +203,7 @@ Ext.define("ChatApp.view.form.ChatForm", {
     onSocketMessage : function(chatsocket, socket, data) {
         var me = this;
         //console.log("new_message", data);
-        me.addMessage(data.username, data.message);
+        me.addMessage(data.post_date, data.username, data.message);
     },
 
     /**
@@ -207,7 +216,7 @@ Ext.define("ChatApp.view.form.ChatForm", {
         var me = this;
         //console.log("user_logged_out", data);
         var username = Ext.util.Format.stripTags(data.username);
-        Ext.toast("User " + username + " logged out. " + data.online + " users is still online");
+        Ext.toast("User " + username + " logged out. " + data.online + " users is still online", "", "t");
     },
 
     /**
@@ -218,7 +227,7 @@ Ext.define("ChatApp.view.form.ChatForm", {
     onSocketClose : function(chatsocket, socket) {
         var me = this;
         //console.log("connection_close", data);
-        Ext.toast("Connection closed");
+        Ext.toast("Connection closed", "", "t");
     },
 
     /**
@@ -231,7 +240,7 @@ Ext.define("ChatApp.view.form.ChatForm", {
         var me = this;
         //console.log("user_disconnected", data);
         var username = Ext.util.Format.stripTags(data.username);
-        Ext.toast("User " + username + " disconnected. " + data.online + " users is still online");
+        Ext.toast("User " + username + " disconnected. " + data.online + " users is still online", "", "t");
     },
 
     /**
@@ -326,12 +335,13 @@ Ext.define("ChatApp.view.form.ChatForm", {
         /**
          * Append message to chatbox and save to localStorage
          *
+         * @param {Date} post_date Message post date
          * @param {String} username Message author
          * @param {String} message Message
          */
-        addMessage : function(username, message) {
+        addMessage : function(post_date, username, message) {
             if (this.chatBox) {
-                var record = this.chatBox.getStore().add({username : username, message : message});
+                var record = this.chatBox.getStore().add({post_date : post_date, username : username, message : message});
                 this.goToRecord(record[0]);
                 this.chatBox.getStore().sync();
             }
@@ -351,7 +361,7 @@ Ext.define("ChatApp.view.form.ChatForm", {
                     var message = textarea.getValue();
                     if (message) {
                         if (me.socket.sendMessage(message)) {
-                            me.addMessage(me.username, message);
+                            me.addMessage(new Date(), me.username, message);
                             textarea.setValue("");
                         }
                     }
