@@ -44,8 +44,8 @@ Ext.define("ChatApp.view.form.ChatForm", {
 
         me.socket.on("connect", me.onSocketConnect, me);
         me.socket.on("user_logged_in", me.onSocketLogin, me);
-        me.socket.on("user_type_start", me.onSocketTypeStart, me);
-        me.socket.on("user_type_end", me.onSocketTypeEnd, me);
+        me.socket.on("user_typing_start", me.onSocketTypeStart, me);
+        me.socket.on("user_typing_end", me.onSocketTypeEnd, me);
         me.socket.on("new_message", me.onSocketMessage, me);
         me.socket.on("user_logged_out", me.onSocketLogout, me);
         me.socket.on("connection_close", me.onSocketClose, me);
@@ -60,6 +60,14 @@ Ext.define("ChatApp.view.form.ChatForm", {
         me.messageBox.down("textarea").on("focus", function() {
             var record = me.chatBox.getStore().last();
             me.goToRecord(record);
+        });
+
+        me.typing = false;
+        me.typeTask = new Ext.util.DelayedTask(function() {
+            if (me.typing) {
+                me.typing = false;
+                me.socket.sendTypeEnd();
+            }
         });
     },
 
@@ -137,10 +145,9 @@ Ext.define("ChatApp.view.form.ChatForm", {
             me.showLoginForm();
         } else {
             me.socket.sendLogin({username: me.username});
-            setTimeout(function() {
-                var record = me.chatBox.getStore().last();
-                me.goToRecord(record);
-            }, 10);
+
+            var record = me.chatBox.getStore().last();
+            me.goToRecord(record);
         }
     },
 
@@ -307,7 +314,8 @@ Ext.define("ChatApp.view.form.ChatForm", {
                         emptyText : "Enter message...",
                         listeners : {
                             scope : this,
-                            keydown : 'onMessageSend'
+                            keydown : 'onMessageSend',
+                            change : 'onMessageChange'
                         }
                     }]
                 });
@@ -324,7 +332,7 @@ Ext.define("ChatApp.view.form.ChatForm", {
             var me = this;
             if (record) {
                 // Timeout to make sure all render events is processed
-                setTimeout(function() {
+                Ext.defer(function() {
                     var rowEl = me.chatBox.getView().getRow(record);
                     var gridEl = me.chatBox.getEl();
                     rowEl.scrollIntoView(gridEl, false);
@@ -347,6 +355,17 @@ Ext.define("ChatApp.view.form.ChatForm", {
             }
         },
 
+        onMessageChange : function(textarea, newValue) {
+            var me = this;
+            if (!me.typing) {
+                me.socket.sendTypeStart();
+                me.typing = true;
+            }
+            me.typeTask.delay(1500);
+            var record = me.chatBox.getStore().last();
+            me.goToRecord(record);
+        },
+
         /**
          * On text area enter hit send message throught this method
          *
@@ -363,6 +382,11 @@ Ext.define("ChatApp.view.form.ChatForm", {
                         if (me.socket.sendMessage(message)) {
                             me.addMessage(new Date(), me.username, message);
                             textarea.setValue("");
+                            if (me.typing) {
+                                me.typeTask.cancel();
+                                me.socket.sendTypeEnd();
+                                me.typing = false;
+                            }
                         }
                     }
                 } else {

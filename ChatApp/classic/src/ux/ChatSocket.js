@@ -33,11 +33,11 @@ Ext.define("ChatApp.ux.ChatSocket", {
         me.socket.on("user_logged_in", function(data) {
             me.fireEvent("user_logged_in", me, me.socket, data);
         });
-        me.socket.on("user_type_start", function(data) {
-            me.fireEvent("user_type_start", me, me.socket, data);
+        me.socket.on("user_typing_start", function(data) {
+            me.fireEvent("user_typing_start", me, me.socket, data);
         });
-        me.socket.on("user_type_end", function(data) {
-            me.fireEvent("user_type_end", me, me.socket, data);
+        me.socket.on("user_typing_end", function(data) {
+            me.fireEvent("user_typing_end", me, me.socket, data);
         });
         me.socket.on("new_message", function(data) {
             me.fireEvent("new_message", me, me.socket, data);
@@ -100,7 +100,7 @@ Ext.define("ChatApp.ux.ChatSocket", {
     sendTypeStart : function () {
         var me = this;
         if (me.fireEvent("beforerequest", me, "starttype", {}) !== false) {
-            me.socket.emit("typestart");
+            me.socket.emit("starttype");
             return true;
         }
         return false;
@@ -113,7 +113,7 @@ Ext.define("ChatApp.ux.ChatSocket", {
     sendTypeEnd : function () {
         var me = this;
         if (me.fireEvent("beforerequest", me, "endtype", {}) !== false) {
-            me.socket.emit("typeend");
+            me.socket.emit("endtype");
             return true;
         }
         return false;
