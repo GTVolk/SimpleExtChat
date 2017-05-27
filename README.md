@@ -14,12 +14,14 @@ Simple ExtJS Chat App
 - Client moderation
 - Message styling by SASS and theme
 - Show message time
+- New message highlight
 - Edit, Delete message
 - Online users list
 - Typing, logout, login in chat box
 - Gravatar OR avatar support and showing
 - Emoji
 - Chat rooms, private and public
+- Chrome fixes :)
 
 ## Test
 You can test application [here on site](http://test.devvault.ru/#main)
