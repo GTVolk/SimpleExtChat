@@ -16,6 +16,10 @@ Ext.define("ChatApp.view.form.ChatForm", {
         "ChatApp.ux.ChatSocket"
     ],
 
+    uses : [
+        "Ext.util.DelayedTask"
+    ],
+
     /**
      * @ignore
      * Layout
@@ -159,7 +163,7 @@ Ext.define("ChatApp.view.form.ChatForm", {
      */
     onSocketLogin : function(chatsocket, socket, data) {
         var me = this;
-        console.log("user_logged_in", data);
+        //console.log("user_logged_in", data);
         var username = Ext.util.Format.stripTags(data.username);
         var myUsername = Ext.util.Format.stripTags(me.username);
         if (myUsername === username) {
