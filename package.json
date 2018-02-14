@@ -1,9 +1,52 @@
 {
-  "name": "ChatApp",
-  "version": "0.0.1",
+  "name": "simpleextchat",
+  "version": "1.0.0",
+  "description": "ExtJS Chat App on MySQL at backend",
+  "main": "server.js",
   "dependencies": {
     "express": "^4.15.3",
-    "mysql": "^2.13.0",
-    "socket.io": "^2.0.1"
-  }
+    "knex": "^0.14.3",
+    "moment": "^2.20.1",
+    "moment-timezone": "^0.5.14",
+    "mysql": "^2.15.0",
+    "socket.io": "^2.0.1",
+    "winston": "^3.0.0-rc1"
+  },
+  "devDependencies": {
+    "eslint": "^4.17.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.6.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "LOG_LEVEL='info' NODE_ENV='production' node server.js",
+    "build": "cd ChatApp && sencha app build production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GTVolk/SimpleExtChat.git"
+  },
+  "keywords": [
+    "extjs",
+    "chat",
+    "mysql",
+    "app",
+    "express",
+    "node",
+    "nodejs",
+    "eslint",
+    "server",
+    "frontend",
+    "backend",
+    "docker",
+    "docker-compose"
+  ],
+  "author": "Max Vorobyev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GTVolk/SimpleExtChat/issues"
+  },
+  "homepage": "https://github.com/GTVolk/SimpleExtChat#readme"
 }

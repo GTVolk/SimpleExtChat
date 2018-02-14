@@ -1,3 +1,10 @@
+.sonarlint
+.idea
+.vscode
+.vs
 ./ext
+./node_modules
 ./package-lock.json
 ./build
+./combined.log
+./error.log
