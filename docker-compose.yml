@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  mysql-db:
+    build:
+      context: .
+      dockerfile: ./docker/mysql-db/Dockerfile
+    restart: always
+  node-server:
+    build:
+      context: .
+      dockerfile: ./docker/node-server/Dockerfile
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: mysql-db
+    links:
+      - mysql-db
+    depends_on:
+      - mysql-db
+  nginx-frontend:
+    build:
+      context: .
+      dockerfile: ./docker/nginx-frontend/Dockerfile
+    restart: always
+    ports:
+      - "8000:80"
+    depends_on:
+      - node-server
