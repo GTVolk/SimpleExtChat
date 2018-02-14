@@ -15,9 +15,13 @@
   "devDependencies": {
     "eslint": "^4.17.0",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-yandex": "^1.0.6",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.6.1"
+    "eslint-plugin-react": "^7.6.1",
+    "jscs": "^3.0.7",
+    "jscs-preset-loris": "^1.2.0",
+    "jshint": "^2.9.5"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

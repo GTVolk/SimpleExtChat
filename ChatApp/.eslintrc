@@ -1,0 +1,20 @@
+{
+  "root": true,
+  "extends": [
+    "yandex"
+  ],
+  "settings": {
+    "ecmascript": 5
+  },
+  "rules": {
+    "vars-on-top": 0,
+    "no-inner-declarations": 0,
+    "camelcase": 0
+  },
+  "globals": {
+    "Ext": true,
+    "log": true,
+    "io": true,
+    "window": true
+  }
+}

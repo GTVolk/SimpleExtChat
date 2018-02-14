@@ -1,0 +1,21 @@
+{
+  "browser": true,
+  "node": true,
+  "esversion": 5,
+  "camelcase": false,
+  "eqeqeq": true,
+  "indent": 4,
+  "latedef": true,
+  "maxlen": 120,
+  "newcap": true,
+  "quotmark": "single",
+  "undef": true,
+  "unused": true,
+  "eqnull": true,
+  "globals": {
+    "Ext": true,
+    "log": true,
+    "io": true,
+    "window": true
+  }
+}

@@ -1,11 +1,5 @@
 {
     "browser": true,
     "node": true,
-    "esversion": 6,
-    "eqnull": true,
-    "globals": {
-        "Ext": true,
-        "io": true,
-        "window": true
-    }
+    "esversion": 6
 }

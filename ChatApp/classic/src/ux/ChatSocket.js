@@ -1,55 +1,51 @@
-/**
- * Created by Max on 20.05.2017.
- */
+Ext.define('ChatApp.ux.ChatSocket', {
+    extend: 'Ext.Component',
 
-Ext.define("ChatApp.ux.ChatSocket", {
-    extend : "Ext.Component",
-
-    config : {
+    config: {
         /**
          * @cfg {String}
          * Socket.IO server hostname
          */
-        host : "http://localhost",
+        host: 'http://localhost',
         /**
          * @cfg {Number}
          * Socket.IO server port
          */
-        port : 3000
+        port: 3000
     },
 
     /**
      * @ignore
      */
-    initComponent : function() {
+    initComponent: function () {
         var me = this;
         me.callParent(arguments);
 
-        me.socket = io(me.getHost() + ":" + me.getPort());
+        me.socket = io(me.getHost() + ':' + me.getPort());
 
-        me.socket.on("connect", function(data) {
-            me.fireEvent("connect", me, me.socket, data);
+        me.socket.on('connect', function (data) {
+            me.fireEvent('connect', me, me.socket, data);
         });
-        me.socket.on("user_logged_in", function(data) {
-            me.fireEvent("user_logged_in", me, me.socket, data);
+        me.socket.on('user_logged_in', function (data) {
+            me.fireEvent('user_logged_in', me, me.socket, data);
         });
-        me.socket.on("user_typing_start", function(data) {
-            me.fireEvent("user_typing_start", me, me.socket, data);
+        me.socket.on('user_typing_start', function (data) {
+            me.fireEvent('user_typing_start', me, me.socket, data);
         });
-        me.socket.on("user_typing_end", function(data) {
-            me.fireEvent("user_typing_end", me, me.socket, data);
+        me.socket.on('user_typing_end', function (data) {
+            me.fireEvent('user_typing_end', me, me.socket, data);
         });
-        me.socket.on("new_message", function(data) {
-            me.fireEvent("new_message", me, me.socket, data);
+        me.socket.on('new_message', function (data) {
+            me.fireEvent('new_message', me, me.socket, data);
         });
-        me.socket.on("user_logged_out", function(data) {
-            me.fireEvent("user_logged_out", me, me.socket, data);
+        me.socket.on('user_logged_out', function (data) {
+            me.fireEvent('user_logged_out', me, me.socket, data);
         });
-        me.socket.on("connection_close", function(data) {
-            me.fireEvent("connection_close", me, me.socket, data);
+        me.socket.on('connection_close', function (data) {
+            me.fireEvent('connection_close', me, me.socket, data);
         });
-        me.socket.on("user_disconnected", function(data) {
-            me.fireEvent("user_disconnected", me, me.socket, data);
+        me.socket.on('user_disconnected', function (data) {
+            me.fireEvent('user_disconnected', me, me.socket, data);
         });
     },
 
@@ -59,7 +55,7 @@ Ext.define("ChatApp.ux.ChatSocket", {
      */
     connect: function () {
         var me = this;
-        if (me.fireEvent("beforeconnect", me) !== false) {
+        if (me.fireEvent('beforeconnect', me) !== false) {
             me.socket.connect();
             return true;
         }
@@ -70,9 +66,9 @@ Ext.define("ChatApp.ux.ChatSocket", {
      * Disconnect to server
      * @return {boolean}
      */
-    disconnect : function () {
+    disconnect: function () {
         var me = this;
-        if (me.fireEvent("beforedisconnect", me) !== false) {
+        if (me.fireEvent('beforedisconnect', me) !== false) {
             me.socket.disconnect();
             return true;
         }
@@ -84,10 +80,10 @@ Ext.define("ChatApp.ux.ChatSocket", {
      * @param {Object} data
      * @return {Boolean}
      */
-    sendLogin : function (data) {
+    sendLogin: function (data) {
         var me = this;
-        if (me.fireEvent("beforerequest", me, "login", data) !== false) {
-            me.socket.emit("login", data);
+        if (me.fireEvent('beforerequest', me, 'login', data) !== false) {
+            me.socket.emit('login', data);
             return true;
         }
         return false;
@@ -97,10 +93,10 @@ Ext.define("ChatApp.ux.ChatSocket", {
      * Send typestart event
      * @return {Boolean}
      */
-    sendTypeStart : function () {
+    sendTypeStart: function () {
         var me = this;
-        if (me.fireEvent("beforerequest", me, "starttype", {}) !== false) {
-            me.socket.emit("starttype");
+        if (me.fireEvent('beforerequest', me, 'starttype', {}) !== false) {
+            me.socket.emit('starttype');
             return true;
         }
         return false;
@@ -110,10 +106,10 @@ Ext.define("ChatApp.ux.ChatSocket", {
      * Send typeend event
      * @return {Boolean}
      */
-    sendTypeEnd : function () {
+    sendTypeEnd: function () {
         var me = this;
-        if (me.fireEvent("beforerequest", me, "endtype", {}) !== false) {
-            me.socket.emit("endtype");
+        if (me.fireEvent('beforerequest', me, 'endtype', {}) !== false) {
+            me.socket.emit('endtype');
             return true;
         }
         return false;
@@ -124,10 +120,10 @@ Ext.define("ChatApp.ux.ChatSocket", {
      * @param {String} message Message
      * @return {Boolean}
      */
-    sendMessage : function (message) {
+    sendMessage: function (message) {
         var me = this;
-        if (me.fireEvent("beforerequest", me, "chat_message", message) !== false) {
-            me.socket.emit("chat_message", message);
+        if (me.fireEvent('beforerequest', me, 'chat_message', message) !== false) {
+            me.socket.emit('chat_message', message);
             return true;
         }
         return false;
@@ -137,10 +133,10 @@ Ext.define("ChatApp.ux.ChatSocket", {
      * Send logout event
      * @return {Boolean}
      */
-    sendLogout : function () {
+    sendLogout: function () {
         var me = this;
-        if (me.fireEvent("beforerequest", me, "logout", {}) !== false) {
-            me.socket.emit("logout");
+        if (me.fireEvent('beforerequest', me, 'logout', {}) !== false) {
+            me.socket.emit('logout');
             return true;
         }
         return false;

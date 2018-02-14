@@ -1,22 +1,13 @@
-/**
- * The main application class. An instance of this class is created by app.js when it
- * calls Ext.application(). This is the ideal place to handle application launch and
- * initialization details.
- */
 Ext.define('ChatApp.Application', {
     extend: 'Ext.app.Application',
-    
+
     name: 'ChatApp',
 
     stores: [
-        "ChatApp.store.ChatMessages"
+        'ChatApp.store.ChatMessages'
     ],
 
-    defaultToken : 'main',
-    
-    launch: function () {
-        // TODO - Launch the application
-    },
+    defaultToken: 'main',
 
     onAppUpdate: function () {
         Ext.Msg.confirm('Application Update', 'This application has an update, reload?',

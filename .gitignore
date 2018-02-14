@@ -2,9 +2,8 @@
 .idea
 .vscode
 .vs
-./ext
-./node_modules
-./package-lock.json
-./build
-./combined.log
-./error.log
+ext
+node_modules
+build
+logs
+package-lock.json
