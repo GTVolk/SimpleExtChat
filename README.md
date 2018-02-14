@@ -30,7 +30,7 @@ Simple ExtJS Chat App
 - Event sounds with mute option
 - Online users list (With offline list too)
 - Typing, logout, login in chat box not by toast
-- Gravatar OR avatar support and showing alongsite message
+- Users avatars or GRAVATAR support
 - Emoji and custom emoji
 - Client authorization and registration (Sign in with Google/VK/Yandex/Facebook and etc...)
 - User profiles and groups (User, Admin, Superadmin...)
