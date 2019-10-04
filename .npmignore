@@ -556,6 +556,12 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+### Sass template
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map
+
 ### NotepadPP template
 # Notepad++ backups #
 *.bak
@@ -575,12 +581,6 @@ modern.jsonp
 resources/sass/.sass-cache/
 resources/.arch-internal-preview.css
 .arch-internal-preview.css
-
-### Sass template
-.sass-cache/
-*.css.map
-*.sass.map
-*.scss.map
 
 ### VisualStudioCode template
 .vscode/*
