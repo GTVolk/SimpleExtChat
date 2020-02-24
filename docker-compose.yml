@@ -1,30 +1,44 @@
 version: '3'
 
 services:
-  mysql-db:
-    build:
-      context: .
-      dockerfile: ./docker/mysql-db/Dockerfile
-    restart: always
-  node-server:
-    build:
-      context: .
-      dockerfile: ./docker/node-server/Dockerfile
-    restart: always
-    ports:
-      - "3000:3000"
+  db:
+    image: mysql:5
     environment:
-      DB_HOST: mysql-db
-    links:
-      - mysql-db
-    depends_on:
-      - mysql-db
-  nginx-frontend:
+      MYSQL_DATABASE: extchatdb
+      MYSQL_USER: chatadm
+      MYSQL_PASSWORD: chatadmpass
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+      - chat_db_data:/var/lib/mysql
+    restart: unless-stopped
+  backend:
+    image: chat_backend:latest
     build:
       context: .
-      dockerfile: ./docker/nginx-frontend/Dockerfile
-    restart: always
+      dockerfile: ./docker/backend/Dockerfile
+    restart: unless-stopped
+    environment:
+      DB_HOST: db
+      DB_USER: chatadm
+      DB_PASSWORD: chatadmpass
+    ports:
+      - 3000:3000
+    links:
+      - db
+    depends_on:
+      - db
+  frontend:
+    image: chat_frontend:latest
+    build:
+      context: .
+      dockerfile: ./docker/frontend/Dockerfile
+    volumes:
+      - ./assets/build/production/ChatApp:/usr/share/nginx/html
+    restart: unless-stopped
     ports:
       - "8000:80"
     depends_on:
-      - node-server
+      - backend
+volumes:
+  chat_db_data:

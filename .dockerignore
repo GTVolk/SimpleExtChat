@@ -556,31 +556,31 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+### Sass template
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map
+
 ### NotepadPP template
 # Notepad++ backups #
 *.bak
 
 ### ExtJs template
 .architect
-bootstrap.css
+assets/ChatApp/bootstrap.css
 bootstrap.js
 bootstrap.json
 bootstrap.jsonp
 build/
-classic.json
-classic.jsonp
+assets/ChatApp/classic.json
+assets/ChatApp/classic.jsonp
 ext/
-modern.json
-modern.jsonp
-resources/sass/.sass-cache/
-resources/.arch-internal-preview.css
+assets/ChatApp/modern.json
+assets/ChatApp/modern.jsonp
+assets/ChatApp/resources/sass/.sass-cache/
+assets/ChatApp/resources/.arch-internal-preview.css
 .arch-internal-preview.css
-
-### Sass template
-.sass-cache/
-*.css.map
-*.sass.map
-*.scss.map
 
 ### VisualStudioCode template
 .vscode/*
@@ -615,3 +615,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+sql
