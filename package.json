@@ -31,7 +31,7 @@
     "assets:build:all": "npm run assets:build:development && npm run assets:build:production",
     "assets:build:production": "cd assets/ChatApp && npx sencha app build production",
     "assets:build:development": "cd assets/ChatApp && npx sencha app build development",
-    "assets:download:extjs": "scripts/download_extjs_gpl.sh",
+    "assets:download:extjs": "scripts/assets_download_extjs.sh",
     "clean:all": "npm run clean:assets && npm run clean:server && npm run clean:logs",
     "clean:assets": "npx rimraf assets/build && npx rimraf assets/ChatApp/bootstrap.* && npx rimraf assets/ChatApp/classic.* && npx rimraf assets/ChatApp/modern.*",
     "clean:server": "npx rimraf node_modules && npx rimraf package-lock.json",
