@@ -33,8 +33,6 @@ services:
     build:
       context: .
       dockerfile: ./docker/frontend/Dockerfile
-    volumes:
-      - ./assets/build/production/ChatApp:/usr/share/nginx/html
     restart: unless-stopped
     ports:
       - "8000:80"

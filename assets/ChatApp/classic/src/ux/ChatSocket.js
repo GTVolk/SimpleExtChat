@@ -6,12 +6,12 @@ Ext.define('ChatApp.ux.ChatSocket', {
          * @cfg {String}
          * Socket.IO backend hostname
          */
-        host: 'http://localhost',
+        host: null,
         /**
          * @cfg {Number}
          * Socket.IO backend port
          */
-        port: 3000
+        port: null
     },
 
     /**
@@ -20,6 +20,9 @@ Ext.define('ChatApp.ux.ChatSocket', {
     initComponent: function () {
         var me = this;
         me.callParent(arguments);
+
+	me.setHost('http://' + document.location.hostname);
+	me.setPort(3000);
 
         me.socket = io(me.getHost() + ':' + me.getPort());
 
