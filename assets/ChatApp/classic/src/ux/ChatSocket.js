@@ -21,8 +21,8 @@ Ext.define('ChatApp.ux.ChatSocket', {
         var me = this;
         me.callParent(arguments);
 
-	me.setHost('http://' + document.location.hostname);
-	me.setPort(3000);
+	    me.setHost('http://' + document.location.hostname);
+	    me.setPort(3000);
 
         me.socket = io(me.getHost() + ':' + me.getPort());
 
