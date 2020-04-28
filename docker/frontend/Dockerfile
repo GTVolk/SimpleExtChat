@@ -6,4 +6,4 @@ RUN	wget -qO- http://cdn.sencha.com/ext/gpl/ext-6.2.0-gpl.zip | busybox unzip -q
 	sencha app build production
 
 FROM nginx:stable-alpine
-COPY --from=sencha /code/build/production/ChatApp /usr/share/nginx/html
+COPY --from=sencha build/production/ChatApp ./
