@@ -17,7 +17,6 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "@extjs/sencha-cmd": "^6.5.4",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-yandex": "^1.0.6",
