@@ -14,10 +14,11 @@
     "rimraf": "^3.0.0",
     "socket.io": "^2.3.0",
     "switchit": "^1.0.8",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
+    "eslint": "^7.0.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-yandex": "^1.0.6",
     "eslint-plugin-import": "^2.20.1",
@@ -52,7 +53,9 @@
     "postinstall": "npm run assets:download:extjs",
     "server:start:production": "cross-env LOG_LEVEL=info NODE_ENV=production \"npx pm2 start index.js\"",
     "server:start:development": "cross-env LOG_LEVEL=debug NODE_ENV=development \"npx pm2 start index.js\"",
-    "start": "npm run assets:build:production && npm run server:start:production"
+    "start": "npm run assets:build:production && npm run server:start:production",
+    "prepublish": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -78,5 +81,6 @@
   "bugs": {
     "url": "https://github.com/GTVolk/SimpleExtChat/issues"
   },
-  "homepage": "https://github.com/GTVolk/SimpleExtChat#readme"
+  "homepage": "https://github.com/GTVolk/SimpleExtChat#readme",
+  "snyk": true
 }
