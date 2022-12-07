@@ -1,0 +1,12 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.22.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:lodash:20180130':
+    - jscs > lodash:
+        patched: '2022-04-23T00:56:42.322Z'
+    - jscs > xmlbuilder > lodash:
+        patched: '2022-04-23T00:56:42.322Z'
+    - jscs > jscs-jsdoc > jsdoctypeparser > lodash:
+        patched: '2022-04-23T00:56:42.322Z'
