@@ -7,5 +7,5 @@ RUN	cd /opt/app && \
 	cd ChatApp && \
 	sencha app build production
 
-FROM nginx:1-alpine
+FROM nginx:1.24-alpine
 COPY --from=sencha /opt/app/build/production/ChatApp /usr/share/nginx/html
