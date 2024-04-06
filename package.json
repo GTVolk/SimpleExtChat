@@ -18,7 +18,7 @@
     "@snyk/protect": "latest"
   },
   "devDependencies": {
-    "eslint": "^7.0.0",
+    "eslint": "^9.0.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-yandex": "^1.0.6",
     "eslint-plugin-import": "^2.20.1",
